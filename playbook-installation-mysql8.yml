@@ -37,3 +37,52 @@
     apt:
       name: mysql-client 
       state: latest
+
+  tasks:
+  - name: Stop service MySQL
+    become: true
+    become_user: root
+    shell: "sudo /etc/init.d/mysql stop"
+
+  tasks:
+  - name: Creation dossier debug
+    become: true
+    become_user: root
+    file:
+      path: /var/run/mysqld
+      state: directory
+      owner: mysql
+
+  tasks:
+  - name: Lancement debug mysql
+    become: true
+    become_user: root
+    shell: "sudo mysqld_safe --skip-grant-tables&"
+
+  tasks:
+  - name: Suppression mode de passe utilisateur root dans MySQL
+    become: true
+    become_user: root
+    community.mysql.mysql_query:
+      login_db: root
+      query: UPDATE mysql.user SET authentication_string=null WHERE User='root';
+
+  tasks:
+  - name: Flush des privilèges
+    become: true
+    become_user: root
+    community.mysql.mysql_query:
+      login_db: root
+      query: FLUSH PRIVILEGES;
+
+  tasks:
+  - name: Arret du debug
+    become: true
+    become_user: root
+    shell: "sudo killall -u mysql"
+
+  tasks:
+  - name: Demarrage de MySQL
+    become: true
+    become_user: root
+    shell: "sudo /etc/init.d/mysql start"
