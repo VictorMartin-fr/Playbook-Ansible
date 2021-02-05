@@ -59,6 +59,8 @@
     become_user: root
     shell: "sudo mysqld_safe --skip-grant-tables&"
 
+  <!-- Se playbook nécéssite le module Ansible community.mysql --!>
+
   tasks:
   - name: Suppression mode de passe utilisateur root dans MySQL
     become: true
@@ -86,3 +88,5 @@
     become: true
     become_user: root
     shell: "sudo /etc/init.d/mysql start"
+
+  <!-- Il n'y aura plus de mot de passe sur le compte root, il faudra en rajouter un manuellement --!>
