@@ -23,9 +23,17 @@
       deb: https://dev.mysql.com/get/mysql-apt-config_0.8.16-1_all.deb
 
   tasks:
-  - name: Installation de mysql 8
+  - name: Installation de mysql 8 serveur
     become: true
     become_user: root
     apt:
-      name: mysql-server mysql-client
+      name: mysql-server 
+      state: latest
+
+  tasks:
+  - name: Installation de mysql 8 client
+    become: true
+    become_user: root
+    apt:
+      name: mysql-client 
       state: latest
