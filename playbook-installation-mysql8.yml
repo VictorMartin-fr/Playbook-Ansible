@@ -1,0 +1,17 @@
+---
+- hosts: mysql_linux
+  tasks:
+  - name: Update du systeme
+    apt:
+      update_cache: yes
+
+  tasks:
+  - name: Installation gnupg
+    apt:
+      name: gnupg
+      state: latest
+
+  tasks:
+  - name: installation du dernier paquet mysql 8
+    apt:
+      deb: https://dev.mysql.com/get/mysql-apt-config_0.8.16-1_all.deb
