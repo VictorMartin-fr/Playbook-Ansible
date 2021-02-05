@@ -24,8 +24,8 @@
 
   tasks:
   - name: Installation de mysql 8
-  become: true
-  become_user: root
-  apt:
-    name: mysql-server mysql-client
-    state: latest
+    become: true
+    become_user: root
+    apt:
+      name: mysql-server mysql-client
+      state: latest
